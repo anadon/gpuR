@@ -66,8 +66,9 @@ void cpp_gpuMatrix_solve(
     std::shared_ptr<viennacl::matrix<T> > vcl_B = getVCLptr<T>(ptrB_, BisVCL, ctx_id);
 
     // solution of a full system right into the load vector vcl_rhs:
-    viennacl::linalg::lu_factorize(*vcl_A);
-    viennacl::linalg::lu_substitute(*vcl_A, *vcl_B);
+    //viennacl::linalg::lu_factorize(*vcl_A);
+    //viennacl::linalg::lu_substitute(*vcl_A, *vcl_B);
+    viennacl::linalg::inplace_solve(*vcl_A, *vcl_B,  viennacl::linalg::upper_tag());
 
     if(!BisVCL){
         Rcpp::XPtr<dynEigenMat<T> > ptrB(ptrB_);
